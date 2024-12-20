@@ -1,0 +1,28 @@
+.custom-btn {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px; /* Rounded corners */
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  }
+  
+  .custom-btn:hover {
+    background-color: #45a049; /* Darker green on hover */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* More intense shadow on hover */
+  }
+  
+  .custom-btn:focus {
+    outline: none;
+  }
+  
+  .custom-btn:active {
+    background-color: #388e3c; /* Even darker green when clicked */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* Shadow effect on click */
+  }
+  
