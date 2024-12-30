@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Form, Modal, ModalBody, ModalFooter } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { storage, db } from '../FirebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { addDoc, collection } from 'firebase/firestore';
 import { addMemories, startLoading, stopLoading } from '../slices/memoriesSlice';
 export const AddMemories = () => {
   const {user} = useSelector((state) => state.user);
@@ -27,18 +25,18 @@ export const AddMemories = () => {
     }
     try {
       dispatch(startLoading);
-      const storageRef = ref(storage, `memories/${user.uid}/${file.name}`);
-      const snapshot = await uploadBytes(storageRef, file);
-      const downloadUrl = await getDownloadURL(snapshot.ref);
+      // const storageRef = ref(storage, `memories/${user.uid}/${file.name}`);
+      // const snapshot = await uploadBytes(storageRef, file);
+      // const downloadUrl = await getDownloadURL(snapshot.ref);
 
-      const memoryData = {
-        userId: user.uid,
-        description,
-        Image: downloadUrl,
-        creayedAt: new Date().toISOString()
-      };
-      const docRef = await addDoc(collection(db, "memories"), memoryData);
-      dispatch(addMemories({ id: docRef.id, ...memoryData }));
+      // const memoryData = {
+      //   userId: user.uid,
+      //   description,
+      //   Image: downloadUrl,
+      //   creayedAt: new Date().toISOString()
+      // };
+      // const docRef = await addDoc(collection(db, "memories"), memoryData);
+      // dispatch(addMemories({ id: docRef.id, ...memoryData }));
       setFile(null);
       setDescription("");
       handleClose();

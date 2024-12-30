@@ -3,7 +3,7 @@ import "../assets/custom.css"
 import { signInWithPopup } from "firebase/auth"
 import { auth, googleProvider } from "../FirebaseConfig";
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from "../slices/userSlice"
+import { setUser } from "../features/auth/userSlice"
 import { useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
