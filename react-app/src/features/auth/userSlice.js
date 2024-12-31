@@ -39,6 +39,9 @@ const userSlice = createSlice({
             state.isAuthenticated = false
             // persistor.purge();
        },
+       resetError: (state) =>  {
+            state.error = null;
+       }
     },
     extraReducers: (builder) => {
         builder.addCase(login.pending, (state) => {
@@ -48,6 +51,7 @@ const userSlice = createSlice({
             state.user = action.payload.data;
             state.isAuthenticated = true;
             state.loading = false;
+            state.error = null;
             
         })
         .addCase(login.rejected, (state, action) => {
@@ -61,6 +65,7 @@ const userSlice = createSlice({
             state.loading = false;
             state.isAuthenticated = true;
             state.user = action.payload?.data;
+            state.error = null;
         })
         .addCase(register.rejected, (state, action) => {
             state.error = action.payload.message;
@@ -73,6 +78,7 @@ const userSlice = createSlice({
             state.loading = false;
             state.user = action.payload?.data;
             state.isAuthenticated = true;
+            state.error = null;
         })
         .addCase(googleLogin.rejected, (state, action) => {
             state.loading = false;
@@ -81,6 +87,6 @@ const userSlice = createSlice({
     }
 })
 
-export const { logout } = userSlice.actions;
+export const { logout, resetError} = userSlice.actions;
 export default userSlice.reducer;
 
