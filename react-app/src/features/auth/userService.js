@@ -8,6 +8,12 @@ const login = async (credentials) => {
 
 const register = async (credentials) => {
     const response = await axiosInstance.post("api/register", credentials);
+    return response.data;
 }
 
-export default {login, register};
+const socialLogin = async (credentials) => {
+    const response = await axiosInstance.post(`api/socialLogin`, credentials);
+    return response.data;
+}
+
+export default {login, register, socialLogin};

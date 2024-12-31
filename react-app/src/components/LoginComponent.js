@@ -3,7 +3,7 @@ import "../assets/custom.css"
 import { signInWithPopup } from "firebase/auth"
 import { auth, googleProvider } from "../FirebaseConfig";
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from "../features/auth/userSlice"
+import { googleLogin } from "../features/auth/userSlice"
 import { useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
@@ -12,20 +12,16 @@ const LoginComponent = () => {
   
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      if (result) {
-        const user = result.user;
-        dispatch(setUser({
-          uid: user.uid,
-          email: user.email,
-          emailVerified: user.emailVerified,
-          displayName: user.displayName,
-          isAnonymous: user.isAnonymous,
-          photoURL: user.photoURL,
-          providerData: user.providerData,
-        }));
+      const response = await signInWithPopup(auth, googleProvider);
+      if (response) {
+        const result  = response.user;
+        const user = {
+          google_id: result.uid,
+          email: result.email,
+        };
+        dispatch(googleLogin(user));  
 
-        navigate("/home");
+        navigate("/app");
       }
     } catch (error) {
       console.log(error);

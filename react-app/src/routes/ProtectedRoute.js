@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 
 const ProtectedRoute = ({children}) => {
-
+  
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.user);
 
