@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Button, Form, Modal, ModalBody, ModalFooter } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { addMemories, startLoading, stopLoading } from '../slices/memoriesSlice';
+import { addMemories } from '../features/memories/memoriesSlice';
 export const AddMemories = () => {
-  const {user} = useSelector((state) => state.user);
-  
+  const { user } = useSelector((state) => state.user);
+  const { loading, message, error } = useSelector((state) => state.memories);
+
   const [show, setShow] = useState(false);
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
@@ -19,31 +20,34 @@ export const AddMemories = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file || !description || !user.uid) {
+    if (!file || !description || !user.id) {
       alert("Please fill all field!");
       return;
     }
     try {
-      dispatch(startLoading);
+
       // const storageRef = ref(storage, `memories/${user.uid}/${file.name}`);
       // const snapshot = await uploadBytes(storageRef, file);
       // const downloadUrl = await getDownloadURL(snapshot.ref);
 
-      // const memoryData = {
-      //   userId: user.uid,
-      //   description,
-      //   Image: downloadUrl,
-      //   creayedAt: new Date().toISOString()
-      // };
+
+
+      const formData = new FormData();
+
+      // Append each field to the FormData object
+      formData.append('userId', user.id);
+      formData.append('description', description);
+      formData.append('image', file); // File objects are appended directly
+      dispatch(addMemories(formData));
       // const docRef = await addDoc(collection(db, "memories"), memoryData);
       // dispatch(addMemories({ id: docRef.id, ...memoryData }));
       setFile(null);
       setDescription("");
       handleClose();
     } catch (error) {
-        dispatch();
+      dispatch();
     } finally {
-      dispatch(stopLoading);
+
     }
   }
   return (
@@ -57,7 +61,7 @@ export const AddMemories = () => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className='mb-3'>
               <Form.Label>File</Form.Label>
-              <Form.Control onChange={(e) => setFile(e.target.files[0])} type='file' placeholder='Enter  email!' />
+              <Form.Control onChange={(e) => setFile(e.target.files[0])} type='file' placeholder='file' />
             </Form.Group>
 
             <Form.Group className='mb-3'>
@@ -70,7 +74,7 @@ export const AddMemories = () => {
         </ModalBody>
         <ModalFooter>
           <Button variant='secondary' onClick={handleClose}>Close</Button>
-         
+
         </ModalFooter>
       </Modal>
     </>

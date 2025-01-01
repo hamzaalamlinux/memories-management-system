@@ -1,6 +1,7 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import userService from "./userService";
+import { setupAxiosInterceptors } from "../../api/axiosInstance";
 
 export const login  = createAsyncThunk(`/api/login`, async(credentials, thunkAPI) => {
     try{
@@ -48,11 +49,10 @@ const userSlice = createSlice({
          state.loading = true;
         })
         .addCase(login.fulfilled, (state, action) => {
-            state.user = action.payload.data;
+            state.user = action.payload?.data;
             state.isAuthenticated = true;
             state.loading = false;
-            state.error = null;
-            
+            state.error = null;            
         })
         .addCase(login.rejected, (state, action) => {
             state.loading = false;

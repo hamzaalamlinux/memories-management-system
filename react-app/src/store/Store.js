@@ -1,7 +1,7 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit"
 import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from "redux-persist"
 import userReducer from '../features/auth/userSlice';
-import memoriesReducer  from "../slices/memoriesSlice";
+import memoriesReducer  from "../features/memories/memoriesSlice";
 import storage from "redux-persist/lib/storage"; // Default is localStorage
 
 const persistConfig = {

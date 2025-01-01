@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { googleLogin, login, resetError } from "../features/auth/userSlice"
 import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-import { setError } from '../slices/memoriesSlice';
 
 
 const LoginComponent = () => {

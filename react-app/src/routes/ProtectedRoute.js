@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
+import { setupAxiosInterceptors } from '../api/axiosInstance';
 
 const ProtectedRoute = ({children}) => {
-  
+
   const navigate = useNavigate();
   const { user, isAuthenticated } = useSelector((state) => state.user);
-
   useEffect(() => {
     // Navigate to the login page if not authenticated
     if (!isAuthenticated) {
+      
       navigate('/');
     }
   }, [isAuthenticated, navigate]);

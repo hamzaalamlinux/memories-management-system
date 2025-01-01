@@ -6,6 +6,7 @@ import Home from '../pages/Home';
 import LogoutComponent from '../components/LogoutComponent';
 import { useSelector } from 'react-redux';
 import { AddMemories } from '../components/AddMemories';
+import Memories from '../pages/Memories';
 
 const MainRoute = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -24,7 +25,7 @@ const MainRoute = () => {
 
         <Route path='add-memories' element={
 
-          <AddMemories />
+          <Memories />
         }
         />
 
