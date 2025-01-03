@@ -1,13 +1,21 @@
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import userService from "./userService";
-import { setupAxiosInterceptors } from "../../api/axiosInstance";
+import axiosInstance, { setupAxiosInterceptors } from "../../api/axiosInstance";
 
 export const login  = createAsyncThunk(`/api/login`, async(credentials, thunkAPI) => {
     try{
         return await userService.login(credentials);
     }catch(error){
         return thunkAPI.rejectWithValue(error.response?.data  || 'Something Went Wrong.');
+    }
+})
+
+export const refreshToken = createAsyncThunk(`/api/refreshToken`, async(request, thunkAPI) => {
+    try{
+        return await userService.refreshToken(request);
+    }catch(error){
+        return thunkAPI.rejectWithValue(error.response?.data || 'Somethign went wrong');
     }
 })
 
@@ -48,6 +56,7 @@ const userSlice = createSlice({
         builder.addCase(login.pending, (state) => {
          state.loading = true;
         })
+        // for login
         .addCase(login.fulfilled, (state, action) => {
             state.user = action.payload?.data;
             state.isAuthenticated = true;
@@ -58,6 +67,7 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload.message;
         })
+        //for register
         .addCase(register.pending, (state) => {
             state.loading = true;
         })
@@ -71,6 +81,8 @@ const userSlice = createSlice({
             state.error = action.payload.message;
             state.loading = false;
         })
+
+        //for social login
         .addCase(googleLogin.pending, (state) => {
             state.loading = true;
         })
@@ -84,6 +96,12 @@ const userSlice = createSlice({
             state.loading = false;
             state.error = action.payload?.message;
         })
+
+        //for refresh token
+        .addCase(refreshToken.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user.token = action.payload.data?.token;
+        })  
     }
 })
 

@@ -16,4 +16,7 @@ const socialLogin = async (credentials) => {
     return response.data;
 }
 
-export default {login, register, socialLogin};
+const refreshToken = async(request) => {
+    return axiosInstance.post(`api/refreshToken`, request);
+}
+export default {login, register, socialLogin, refreshToken};
