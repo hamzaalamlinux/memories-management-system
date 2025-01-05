@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <div className="d-flex">
       {/* Sidebar */}
-      <div className="bg-light" style={{ width: '250px', minHeight: '100vh' }}>
+      {/* <div className="bg-light" style={{ width: '250px', minHeight: '100vh' }}>
         <h4 className="p-3">Dashboard</h4>
         <div className="list-group">
           <Link to="/app/add-memories" className="list-group-item list-group-item-action">Add Memories</Link>
@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
           <Dropdown.Item as="button" onClick={() => alert('See Profile')}>See Profile</Dropdown.Item>
           <Dropdown.Item as="button" onClick={() => alert('Logging out')}>Logout</Dropdown.Item>
         </DropdownButton>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="flex-grow-1">

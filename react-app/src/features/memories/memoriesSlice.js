@@ -12,7 +12,7 @@ export const addMemories = createAsyncThunk(`api/memories/store`, async(request 
 
 export const fetchMemories = createAsyncThunk(`api/memories/reterive-memories`, async(thunkAPI) => {
     try{
-        console.log("ok");
+       
         return await memoriesService.fetchMemories();
     }catch(error){
         return thunkAPI.rejectWithValue(error.response?.data || 'Something Went Wrong');
@@ -39,7 +39,7 @@ const memoriesSlice = createSlice({
         })
         .addCase(addMemories.fulfilled, (state, action) => {
             state.loading = false;
-            state.memories = action.payload?.data;
+            state.memories.push(action.payload?.data);
             state.status = action.payload.status;
             state.message = action.payload.message;
         })
