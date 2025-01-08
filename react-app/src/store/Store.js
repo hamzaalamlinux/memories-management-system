@@ -1,13 +1,33 @@
 import {combineReducers, configureStore} from "@reduxjs/toolkit"
-import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from "redux-persist"
+import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE, createTransform} from "redux-persist"
 import userReducer from '../features/auth/userSlice';
 import memoriesReducer  from "../features/memories/memoriesSlice";
 import storage from "redux-persist/lib/storage"; // Default is localStorage
 
+
+// Transform to persist only specific keys in the user slice
+const userTransform = createTransform(
+  // Transform state before it is persisted
+  (inboundState) => {
+    const { user, isAuthenticated } = inboundState; // Persist only the 'user' key
+    return { user, isAuthenticated };
+  },
+  // Transform state when it is rehydrated
+  (outboundState) => {
+    return {
+      ...outboundState,
+      loading: false, // Default value for loading
+      error: null, // Default value for error
+      status : false
+    };
+  },
+  { whitelist: ["user"] } // Apply this transform only to the 'user' slice
+);
 const persistConfig = {
     key : "root",
     storage,
-    whitelist: ["user"]
+    whitelist: ["user"],
+    transforms : [userTransform]
 }
 
 const clearStateMiddleware = store => next => action => {

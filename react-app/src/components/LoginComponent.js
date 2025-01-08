@@ -4,7 +4,7 @@ import { signInWithPopup } from "firebase/auth"
 import { auth, googleProvider } from "../FirebaseConfig";
 import { useDispatch, useSelector } from 'react-redux';
 import { googleLogin, login, resetError } from "../features/auth/userSlice"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 
 
@@ -34,7 +34,7 @@ const LoginComponent = () => {
         };
         dispatch(googleLogin(user));
 
-        navigate("/app");
+        // navigate("/app");
       }
     } catch (error) {
       console.log(error);
@@ -133,11 +133,12 @@ const LoginComponent = () => {
       <button
         type="button"
         onClick={handleGoogleLogin}
-        className="btn btn-outline-danger btn-lg btn-block w-100 py-3 mt-3"
-      >
+        className="btn btn-outline-danger btn-lg btn-block w-100 py-3 mt-3">
         <i className="fab fa-google mx-2"></i> Sign in with Google
       </button>
+      <span className='text-center mx-4 my-4'>Don't have an account? <Link to="/register">Signup now</Link></span>
     </Form>
+    
   </div>
   
   )

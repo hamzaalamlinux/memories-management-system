@@ -6,7 +6,7 @@ import { addMemories } from '../features/memories/memoriesSlice';
 export const AddMemories = () => {
   const { user } = useSelector((state) => state.user);
   const { loading, message, error } = useSelector((state) => state.memories);
-
+console.log(user.token);
   const [show, setShow] = useState(false);
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
@@ -52,7 +52,7 @@ export const AddMemories = () => {
   }
   return (
     <>
-      <button className='btn btn-primary' onClick={handleShow}>Add Memories</button>
+      <button className='btn btn-primary mb-2' onClick={handleShow}>Add Memories</button>
       <Modal show={show} >
         <Modal.Header closeButton onClick={handleClose}>
           <Modal.Title>Add Memories</Modal.Title>

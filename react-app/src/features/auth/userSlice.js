@@ -40,6 +40,7 @@ const userSlice = createSlice({
         user : null,
         loading: false,
         error : null,
+        status : false,
         isAuthenticated: false,
     },
     reducers:{
@@ -61,7 +62,8 @@ const userSlice = createSlice({
             state.user = action.payload?.data;
             state.isAuthenticated = true;
             state.loading = false;
-            state.error = null;            
+            state.error = null; 
+            state.status = true;           
         })
         .addCase(login.rejected, (state, action) => {
             state.loading = false;
