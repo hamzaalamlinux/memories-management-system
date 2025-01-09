@@ -1,25 +1,23 @@
 import React, { useState } from 'react'
-import { Button, Form, Modal, ModalBody, ModalFooter } from 'react-bootstrap'
+import { Button, Form, Modal, ModalBody, ModalFooter, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { addMemories } from '../features/memories/memoriesSlice';
-export const AddMemories = () => {
+import {  updateMemories } from '../features/memories/memoriesSlice';
+export const EditMemoryModal = ({ show, handleClose, memory }) => {
   const { user } = useSelector((state) => state.user);
-
-  const [show, setShow] = useState(false);
+  const [imagePath, setImagePath] = useState(`http://127.0.0.1:8000${memory.imagePath}` || '');
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
-  const handleShow = () => {
-    setShow(true);
-  }
-  const handleClose = () => {
-    setShow(false);
-  }
 
+  const cnageFile = (e) => {
+    const file = e.target.files[0];
+    setFile(file);
+    setImagePath(URL.createObjectURL(file));
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!file || !description || !user.id) {
+    if (!user.id) {
       alert("Please fill all field!");
       return;
     }
@@ -34,10 +32,11 @@ export const AddMemories = () => {
       const formData = new FormData();
 
       // Append each field to the FormData object
+      formData.append('Id', memory.id);
       formData.append('userId', user.id);
-      formData.append('description', description);
+      formData.append('description', (description) ? description : memory.description);
       formData.append('image', file); // File objects are appended directly
-      dispatch(addMemories(formData));
+      dispatch(updateMemories(formData));
       // const docRef = await addDoc(collection(db, "memories"), memoryData);
       // dispatch(addMemories({ id: docRef.id, ...memoryData }));
       setFile(null);
@@ -51,22 +50,31 @@ export const AddMemories = () => {
   }
   return (
     <>
-      <button className='btn btn-primary mb-2' onClick={handleShow}>Add Memories</button>
+
       <Modal show={show} >
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Add Memories</Modal.Title>
+          <Modal.Title>Edit Memories</Modal.Title>
         </Modal.Header>
         <ModalBody>
           <Form onSubmit={handleSubmit}>
             <Form.Group className='mb-3'>
               <Form.Label>File</Form.Label>
-              <Form.Control onChange={(e) => setFile(e.target.files[0])} type='file' placeholder='file' />
+              <Form.Control onChange={(e) => cnageFile(e)} type='file' placeholder='file' />
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Image
+                src={`${imagePath}`}
+                alt="Memory Image"
+                fluid
+                style={{ height: '300px', width: '100%', marginBottom: '20px' }}
+              />
             </Form.Group>
 
             <Form.Group className='mb-3'>
               <Form.Label>Description</Form.Label>
               <Form.Control onChange={(e) => setDescription(e.target.value)} as="textarea"
-                rows={3}></Form.Control>
+                rows={3}>{memory.description || ''}</Form.Control>
             </Form.Group>
             <Button type='submit' variant='secondary'>Save Chnages</Button>
           </Form>

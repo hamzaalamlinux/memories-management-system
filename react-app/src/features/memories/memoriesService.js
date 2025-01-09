@@ -11,10 +11,15 @@ const fetchMemories = async () => {
     return response.data;
 }
 
-const deleteMemories = (Id) => {
-    const response =  axiosInstance.delete(`api/memories/delete-memories/${Id}`);
+const deleteMemories = async (Id) => {
+    const response =  await axiosInstance.get(`api/memories/delete-memories/${Id}`);
     return response.data;
 
 }
 
-export default {addMemories, fetchMemories, deleteMemories};
+const updatememories = async  (request) => {
+    const response = await axiosInstance.post(`api/memories/update-memories`, request);
+    return response.data;
+}
+
+export default {addMemories, fetchMemories, deleteMemories, updatememories};

@@ -5,7 +5,7 @@ import { Navbar, Nav, Dropdown, DropdownButton, DropdownItem } from 'react-boots
 
 const Layout = ({ children }) => {
   return (
-    <div className="d-flex">
+    <div className="d-flex justify-content-around">
       {/* Sidebar */}
       {/* <div className="bg-light" style={{ width: '250px', minHeight: '100vh' }}>
         <h4 className="p-3">Dashboard</h4>
@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
       </div> */}
 
       {/* Main Content */}
-      <div className="flex-grow-1">
+      <div className="flex-grow-1  justify-content-around">
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="#home">React App</Navbar.Brand>
           <Nav className="ml-auto">
