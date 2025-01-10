@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
           <Navbar.Brand href="#home">Mᴇᴍᴏʀɪᴇs</Navbar.Brand>
           <Nav className="ml-auto">
             <Nav.Item>
-              <Link to="/" className="nav-link text-white">Home</Link>
+              <Link to="/app/add-memories" className="nav-link text-white">Add Memories</Link>
             </Nav.Item>
             <Nav.Item>
               <Link to="/app/logout" className="nav-link text-white">Logout</Link>
