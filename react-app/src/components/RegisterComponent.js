@@ -15,11 +15,11 @@ import "react-phone-input-2/lib/style.css";
 const RegisterComponent = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [userName, setUsername] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [userName, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [contactNumber,setcontactNumber ] = useState();
-    const [errors , setErrors] = useState({email : '', password : ''});
+    const [errors , setErrors] = useState({email : '', password : '', username: '', contactNumber: ''});
     const {error} = useSelector((state) => state.user);
     const handleGoogleLogin =  async () => {
         try {
@@ -70,9 +70,8 @@ const RegisterComponent = () => {
       newErrors.password = 'Password is required';
       isValid = false;
     }
-
-    if(password.lenght != 8){
-        newErrors.password = "Password is required";
+    if(password.length != 8){
+        newErrors.password = "Password should not be greather then 8 characters";
         isValid = false;
     }
 
@@ -99,7 +98,10 @@ const RegisterComponent = () => {
         const {name, value} = e.target;
         if(name == "username") setUsername(value);
         if(name == "email") setEmail(value);
-        if(name == "password") setPassword(value);
+        if(name == "password") {
+          console.log(value);
+          setPassword(value)
+        };
        
     }
     const handlePhoneChange = (value) => {
