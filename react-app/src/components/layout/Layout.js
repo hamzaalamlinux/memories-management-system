@@ -1,7 +1,7 @@
 // Layout.js
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { Navbar, Nav, Dropdown, DropdownButton, DropdownItem } from 'react-bootstrap';
+import { Navbar, Nav, Dropdown, DropdownButton, DropdownItem, Container } from 'react-bootstrap';
 
 const Layout = ({ children }) => {
   return (
@@ -23,15 +23,17 @@ const Layout = ({ children }) => {
       {/* Main Content */}
       <div className="flex-grow-1  justify-content-around">
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="#home">React App</Navbar.Brand>
+        <Container>
+          <Navbar.Brand href="#home">Mᴇᴍᴏʀɪᴇs</Navbar.Brand>
           <Nav className="ml-auto">
             <Nav.Item>
               <Link to="/" className="nav-link text-white">Home</Link>
             </Nav.Item>
             <Nav.Item>
-              <Link to="/profile" className="nav-link text-white">Profile</Link>
+              <Link to="/app/logout" className="nav-link text-white">Logout</Link>
             </Nav.Item>
           </Nav>
+          </Container>
         </Navbar>
 
         <div className="container mt-4">

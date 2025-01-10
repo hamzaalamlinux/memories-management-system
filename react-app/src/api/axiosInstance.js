@@ -5,7 +5,7 @@ import { refreshToken } from "../features/auth/userSlice";
 import { useEffect } from "react";
 
 const axiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:8000",
+    baseURL: "http://145.223.85.15:9000",
 });
 
 export const setupAxiosInterceptors = (token, dispatch, navigate) => {

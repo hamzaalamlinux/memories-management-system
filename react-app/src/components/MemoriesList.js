@@ -60,7 +60,7 @@ const MemoriesList = () => {
                     return (
                         <Col key={memory.id} xs={12} sm={6} md={4} lg={3}>
                             <Card style={{ marginBottom: '20px', position: 'relative' }}>
-                                <Card.Img variant="top" style={{ height: 300, width: 500 }} src={`http://127.0.0.1:8000${memory.imagePath}`} />
+                                <Card.Img variant="top" style={{ height: 300, width: 500 }} src={`http://145.223.85.15:9000${memory.imagePath}`} />
                                 <Card.Body style={{ display: 'flex', flexDirection: 'column' }}>
                                     <Card.Title className="card-title" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{memory.description || "No description"}</Card.Title>
                                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>

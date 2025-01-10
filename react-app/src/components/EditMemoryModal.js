@@ -5,7 +5,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import {  updateMemories } from '../features/memories/memoriesSlice';
 export const EditMemoryModal = ({ show, handleClose, memory }) => {
   const { user } = useSelector((state) => state.user);
-  const [imagePath, setImagePath] = useState(`http://127.0.0.1:8000${memory.imagePath}` || '');
+  const [imagePath, setImagePath] = useState(`http://145.223.85.15:9000${memory.imagePath}` || '');
   const [file, setFile] = useState(null);
   const [description, setDescription] = useState('');
   const dispatch = useDispatch();
